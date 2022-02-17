@@ -1,4 +1,4 @@
-/*this algorith calculates if the year is a leap year*/
+/*this algorithmn calculates if the year is a leap year*/
 
 #include <stdio.h>
 
