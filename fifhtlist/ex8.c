@@ -17,10 +17,12 @@ int main(){
             printf("Registration number of the student >");
             scanf("%f",&matrix[i][j]);
             j++;
+            
             printf("\n");
             printf("The tests average of the %.0f student >",matrix[i][j-1]);
             scanf("%f",&matrix[i][j]);
             j++;
+            
             printf("\n");
             printf("The works of the semester average of the %.0f student >",matrix[i][j-2]);
             scanf("%f",&matrix[i][j]);
@@ -36,10 +38,13 @@ int main(){
         for(int j=0; j<5; j++){
             printf("||  %.0f  ||",matrix[i][j]);
             j++;
+            
             printf("      ||%.2f||",matrix[i][j]);
             j++;
+            
             printf("  ||%.2f||",matrix[i][j]);
             j++;
+            
             if(matrix[i][j-1]+matrix[i][j-2]/2==10){
                 printf("   || %.2f||      ||",(matrix[i][j-1]+matrix[i][j-2])/2);
                 j++;
