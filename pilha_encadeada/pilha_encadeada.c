@@ -28,15 +28,15 @@ Pilha* pilha_criar(){
     return p;
 }
 void pilha_destruir(Pilha** endereco){ //Checar com o professor
-    No*temp;
-    No*temp2;
-    while(temp2){
-        temp2 = temp->prox;
-        free(temp->prox);
-        temp = temp2;
+    Pilha* p = *endereco;
+    No* temp;
+    while(p->topo!=NULL){
+        temp = p->topo;
+        p->topo = temp->prox;
+        free(temp);
     }
-    free(temp);
-    free(temp2);
+    free(p);
+    *endereco=NULL;
 }
 bool pilha_empilhar(Pilha* p, TipoElemento elemento){
     No* novoNo = (No*) malloc(sizeof(No*));
@@ -62,7 +62,15 @@ bool pilha_desempilhar(Pilha* p, TipoElemento* saida){
         
     }
 } 
-bool pilha_topo(Pilha* p, TipoElemento* saida); 
+bool pilha_topo(Pilha* p, TipoElemento* saida){
+    if(!pilha_vazia){
+        //*saida = p->topo;
+        return true;
+    }else{
+        printf("A pilha está vazia");
+        return false;
+    }
+}
 bool pilha_vazia(Pilha* p){
     if(p->topo == NULL){
         return true;

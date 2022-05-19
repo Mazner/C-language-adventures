@@ -1,1 +1,4 @@
-gcc	-c	pilha_encadeada.c	-o	pilha_encadeada.o
+all:
+	gcc -c pilha_encadeada.c
+	gcc main.c pilha_encadeada.o -o main
+	./main
