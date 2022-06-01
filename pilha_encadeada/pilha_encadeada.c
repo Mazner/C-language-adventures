@@ -1,86 +1,215 @@
 #include "pilha.h"
 
 /**************************************
-* DADOS
-**************************************/
-typedef struct no{
-	TipoElemento dado;
-	struct no    *prox;
-}No;
+ * DADOS
+ **************************************/
+typedef struct no
+{
+    TipoElemento dado;
+    struct no *prox;
+} No;
 
-struct pilha{
-	No *topo;
-	int qtdeElementos;
+struct pilha
+{
+    No *topo;
+    int qtdeElementos;
 };
 
 /**************************************
-* IMPLEMENTAÇÃO
-**************************************/
+ * IMPLEMENTAÇÃO
+ **************************************/
 // Desenvolva as funções
-Pilha* pilha_criar(){
-    Pilha* p = (Pilha*) malloc(sizeof(Pilha*));
+Pilha *pilha_criar()
+{
+    Pilha* p = (Pilha*) malloc(sizeof(Pilha));
+
     if(!p){
-        printf("Sem memória para criar\n");
+        printf("Memória cheia!");
     }else{
         p->topo = NULL;
-        p->qtdeElementos = 0;
-    }
-    return p;
+        p->qtdeElementos = -1;
+        }
 }
-void pilha_destruir(Pilha** endereco){ //Checar com o professor
-    No*temp;
-    No*temp2;
-    while(temp2){
-        temp2 = temp->prox;
-        free(temp->prox);
-        temp = temp2;
+void pilha_destruir(Pilha **endereco)
+{
+    Pilha* p = *endereco;
+    No* temp;
+    while(p->topo != NULL){
+        temp = p->topo;
+        p->topo = p->topo->prox;
+        free(temp);
     }
-    free(temp);
-    free(temp2);
+    *endereco = NULL;
+    free(*endereco);
 }
-bool pilha_empilhar(Pilha* p, TipoElemento elemento){
-    No* novoNo = (No*) malloc(sizeof(No*));
-    if(novoNo == NULL)
+bool pilha_empilhar(Pilha *p, TipoElemento elemento)
+{
+    No* novoNo = (No*) malloc(sizeof(No));
+    if(!novoNo) return false;
+
+    novoNo->prox = p->topo;
+    novoNo->dado = elemento;
+    p->topo = novoNo;
+    p->qtdeElementos++;
+    return true;
+}
+bool pilha_desempilhar(Pilha *p, TipoElemento *saida)
+{
+    if(pilha_vazia(p)) return false;
+
+    *saida = p->topo->dado;
+    p->topo = p->topo->prox;
+    p->qtdeElementos--;
+}
+bool pilha_topo(Pilha *p, TipoElemento *saida)
+{
+    if(pilha_vazia(p)) return false;
+
+    *saida = p->topo->dado;
+    return true;
+}
+bool pilha_vazia(Pilha *p)
+{
+    if (p->topo == NULL || p->qtdeElementos == -1)
     {
-        printf("Memória cheia!");
-        return false;
+        printf("PILHA VAZIA!!");
+        return true;
     }
     else
-    {                         //                          
-    novoNo->dado = elemento; //Colocando o novo elemento  | 10  | prox |
-    novoNo->prox = p->topo; // Pegamos o elemento anterior, e colocamos-o no proximo, exemplo:                           
-    p->topo = novoNo;      //                          
-    p->qtdeElementos++;
-
-    return true;
-    }
-}
-bool pilha_desempilhar(Pilha* p, TipoElemento* saida){
-    if(pilha_vazia(p)){
-        return false;
-    }else{
-        
-    }
-} 
-bool pilha_topo(Pilha* p, TipoElemento* saida); 
-bool pilha_vazia(Pilha* p){
-    if(p->topo == NULL){
-        return true;
-    }else{
+    {
         return false;
     }
 }
-void pilha_imprimir(Pilha* p){
-    No* temp;
-    while(temp){
-        printf("%d\n", temp->dado);
+void pilha_imprimir(Pilha *p)
+{
+    No *temp = p->topo;
+    while (temp)
+    {
+        printf("%d", temp->dado);
         temp = temp->prox;
     }
 }
-int pilha_tamanho(Pilha* p){
+int pilha_tamanho(Pilha *p)
+{
     return p->qtdeElementos;
 }
-Pilha* pilha_clone(Pilha* p);
-void pilha_inverter(Pilha* p);
-bool pilha_empilharTodos(Pilha* p, TipoElemento* vetor, int tamVetor);
-bool pilha_toString(Pilha* f, char* str);
+Pilha *pilha_clone(Pilha *p)
+{
+    int i = p->qtdeElementos;
+    Pilha* pNovo = pilha_criar();
+
+    while(i >= 0){
+        pilha_empilhar(pNovo,p->topo->dado);
+        p->topo = p->topo->prox;
+        i--;
+    }
+
+}
+void pilha_inverter(Pilha *p)
+{
+    No* temp;
+    No* anterior;
+    if (p->topo->prox->prox == NULL)
+    {
+        p->topo->prox->prox = p->topo;
+        p->topo = (p->topo)->prox;
+        (p->topo)->prox->prox = NULL;
+    }
+    else
+    {
+        anterior = p->topo;
+        temp = (p->topo)->prox;
+        p->topo = (p->topo)->prox->prox;
+        anterior->prox = NULL;
+        while ((p->topo)->prox != NULL)
+        {
+            temp->prox = anterior;
+            anterior = temp;
+            temp = p->topo;
+            p->topo = (p->topo)->prox;
+        }
+        temp->prox = anterior;
+        (p->topo)->prox = temp;
+    }
+}
+
+bool pilha_empilharTodos(Pilha *p, TipoElemento *vetor, int tamVetor)
+{
+    for (int i = 0; i < tamVetor; i++)
+    {
+        pilha_empilhar(p, vetor[i]);
+    }
+    return true;
+}
+bool pilha_toString(Pilha *f, char *str){
+    if(pilha_vazia(f)){
+        return false;
+    }else{
+        int a=1;
+        while(f->topo != NULL){
+            a += sprintf(&str[a],"%d, ", f->topo->dado);
+            f->topo = f->topo->prox;
+        }
+        str[0] = '[';
+        str[a-2] = ']';
+        str[a-1] = '\0';
+
+        return true;
+    }
+}
+void calculadora_posfixa(char* str){
+    int a,b;
+    Pilha* resultado = pilha_criar();
+
+    int i = 0;
+
+    while(str[i] != '\0'){
+        if(str[i] > 47 && str[i] < 58){     // se for um numero
+            pilhaEmpilharInt(resultado,str[i]);
+        }else if(str[i] == '+' ){
+            pilhaDesempilharInt(resultado, &a);
+            pilhaDesempilharInt(resultado, &b);
+            
+            pilhaEmpilharInt(resultado, a + b);
+        }else if(str[i] == '-'){
+            pilhaDesempilharInt(resultado, &a);
+            pilhaDesempilharInt(resultado, &b);
+
+            pilhaEmpilharInt(resultado, a - b);
+        }else if(str[i] == '*'){
+            pilhaDesempilharInt(resultado, &a);
+            pilhaDesempilharInt(resultado, &b);
+
+            pilhaEmpilharInt(resultado, a * b);
+        }else if(str[i] == '/'){
+            pilhaDesempilharInt(resultado, &a);
+            pilhaDesempilharInt(resultado, &b);
+
+            pilhaEmpilharInt(resultado, a / b);
+        }
+        i++;
+    }
+    pilha_imprimir(resultado);
+}
+
+bool pilhaDesempilharInt(Pilha *p, int *saida)
+{
+    if(pilha_vazia(p)) return false;
+
+    *saida = p->topo->dado;
+    p->topo = p->topo->prox;
+    p->qtdeElementos--;
+    return true;
+}
+bool pilhaEmpilharInt(Pilha *p, char elemento)
+{
+    No* novoNo = (No*) malloc(sizeof(No));
+    if(!novoNo) return false;
+
+    novoNo->prox = p->topo;
+    novoNo->dado = elemento - '0';
+    p->topo = novoNo;
+    p->qtdeElementos++;
+    printf("Elemento  = %d",novoNo->dado);
+    return true;
+}

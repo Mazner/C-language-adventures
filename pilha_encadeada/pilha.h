@@ -4,12 +4,14 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdbool.h>
+#include<string.h>
 
 typedef int TipoElemento;
 /**************************************
 * DADOS
 **************************************/
 typedef struct pilha Pilha;
+typedef struct pilhaInt PilhaInt;
 
 /**************************************
 * PROTÓTIPOS
@@ -26,5 +28,10 @@ Pilha* pilha_clone(Pilha* p);
 void pilha_inverter(Pilha* p);
 bool pilha_empilharTodos(Pilha* p, TipoElemento* vetor, int tamVetor);
 bool pilha_toString(Pilha* p, char* str);
+void calculadora_posfixa(char* str);
+int convertToInt(char dado);
+bool pilhaDesempilharInt(Pilha *p, int *saida);
+bool pilhaEmpilharInt(Pilha *p, char elemento);
+
 
 #endif
