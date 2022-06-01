@@ -9,14 +9,9 @@ int main(){
     pilha_empilhar(p, 40);
     pilha_empilhar(p, 50);
 
+    pilha_destruir(&p);
 
-   pilha_destruir(&p);
-  /*  
     pilha_imprimir(p);
 
-    int a = 0;
-    
-    pilha_topo()
-*/
 return 0;
 }
