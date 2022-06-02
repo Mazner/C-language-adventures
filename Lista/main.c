@@ -42,11 +42,21 @@ void teste_inserir(){
 
 int main(){
 
-    teste_anexar();
-    teste_inserir();
+    Lista* l = lista_criar();
+    lista_anexar(l, 10);
+    lista_anexar(l, 40);
+    lista_anexar(l, 20);
+    lista_anexar(l, 30);
 
-    
-    
+    int a = 0;
 
+    char str[200];
+    lista_removerPosicao(l,1,&a);
+
+    lista_toString(l, str);
+
+    printf("%s\n",str);
+    
+    printf("%d",a);
     return 0;
 }

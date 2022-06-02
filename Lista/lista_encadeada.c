@@ -43,6 +43,7 @@ No* procuraNo(Lista* l, int posicao){
             aux = aux->ant;
         }
     }
+    return aux;
 }
 
 void inserirEsquerda(No* referencia, No* novo){
@@ -111,14 +112,47 @@ bool lista_inserir(Lista* l, TipoElemento elemento, int posicao){
         l->fim->prox = novo;
         l->fim = novo;
     }else{
-        No* aux = procuraNo(l, posicao-1); // procurar a posicao correta (por que posicao - 1?)
-        inserirDireita(aux, novo);
-    }
+        No* aux = procuraNo(l, posicao-1); // procurar a posicao correta 
+        inserirDireita(aux, novo);         // Posição - 1 = inserir a direita
+    }                                      // Posição = inserir a esquerda
     l->qtde++;
 }
 
 
-bool lista_removerPosicao(Lista* l, int posicao, TipoElemento* endereco);
+bool lista_removerPosicao(Lista* l, int posicao, TipoElemento* endereco){
+    if(lista_vazia(l))  return false;
+    if(posicao > l->qtde - 1 || posicao < 0)   return false;
+    
+    if(l->qtde == 1){
+        *endereco = l->inicio->dado;
+        free(l->inicio);
+        l->fim = NULL;
+        l->inicio = NULL;
+    }else if(posicao == 0){
+        *endereco = l->inicio->dado;
+        No* aux = l->inicio;
+        l->inicio = aux->prox;
+        free(aux);
+        l->inicio->ant = NULL;
+    }else if(posicao == l->qtde - 1){
+        *endereco = l->fim->dado;
+        No* aux = l->fim;
+        l->fim = aux->ant;
+        free(aux);
+        l->fim->prox = NULL;
+        aux = NULL;
+    }else{
+        No* aux = procuraNo(l,posicao);
+
+        *endereco = aux->dado;
+
+        aux->prox->ant = aux->ant;
+        aux->ant->prox = aux->prox;
+        free(aux);
+        aux = NULL;
+    }
+
+}
 int lista_removerElemento(Lista* l, TipoElemento elemento);
 bool lista_substituir(Lista* l, int posicao, TipoElemento novoElemento);
 bool lista_vazia(Lista* l){
