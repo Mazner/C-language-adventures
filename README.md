@@ -1,5 +1,4 @@
-# C-language-adventures
-## My programs made using C language
+# Here you'll find my programs made with <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="20" height="20" />
 
 ## The programs go as follow:
 
