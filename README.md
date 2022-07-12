@@ -1,17 +1,20 @@
 # C-language-adventures
 ## My programs made using C language
 
+## The programs go as follow:
 
-### 1 Simple programs, without conditions or loops;
+### First Simple programs, without conditions or loops;
 
-### 2 Programs using conditions (if, else, else if);
+### Second Programs using conditions (if, else, else if);
 
-### 3 Programs using loops (for, while, do while);
+### Third Programs using loops (for, while, do while);
 
-### 4 Programs using arrays;
+### Fourth Programs using arrays;
 
-### 5 programs using matrixes;
+### Fifth programs using matrixes;
 
-### lista (list)
+### Lista (It's a normal list data structure)
 
-#
+### Pilha_encadeada  (linked stack)
+
+### pilha_contigua (Stack made with array)
