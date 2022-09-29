@@ -1,13 +1,19 @@
-# C-language-adventures
-My programs made using C language
+# Here you'll find my programs made with <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="25" height="25" />
 
+## The programs go as follow:
 
-#1 Simple programs, without conditions or loops;
+### First list Simple programs, without conditions or loops;
 
-#2 Programs using conditions (if, else, else if);
+### Second list Programs using conditions (if, else, else if);
 
-#3 Programs using loops (for, while, do while);
+### Third list Programs using loops (for, while, do while);
 
-#4 Programs using arrays;
+### Fourth list Programs using arrays;
 
-#5 programs using matrixes;
+### Fifth list programs using matrixes;
+
+### Lista (It's a normal list data structure)
+
+### Pilha_encadeada  (linked stack)
+
+### pilha_contigua (Stack made with array)
